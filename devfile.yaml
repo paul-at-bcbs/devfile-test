@@ -1,0 +1,53 @@
+schemaVersion: 2.1.0
+metadata:
+  name: python-test-paul-02
+projects:
+  - name: content-search-discovery
+    git:
+      remotes:
+        origin: 'https://ghe.fyiblue.com/HCSC-Pilot/_gen2-content-search-discovery.git'
+      checkoutFrom:
+        revision: main
+        
+  - name: tf-searchexp
+    git:
+      remotes:
+        origin: 'https://ghe.fyiblue.com/HCSC-Pilot/tf-searchexp.git'
+      checkoutFrom:
+        revision: SEP-71-paul-code-01
+components:
+  - name: python
+    container:
+      image: registry.redhat.io/devspaces/udi-rhel8:3.11
+      volumeMounts:
+        - name: venv
+          path: /home/user/.venv
+      memoryLimit: '4Gi'
+      memoryRequest: '2Gi'
+      cpuLimit: '2'
+      cpuRequest: '1'
+      mountSources: true
+  
+  - name: vite-js
+    container:
+      image: registry.redhat.io/devspaces/udi-rhel8:3.11
+      volumeMounts:
+        - name: venv
+          path: /home/user/.venv
+      memoryLimit: '4Gi'
+      memoryRequest: '2Gi'
+      cpuLimit: '2'
+      cpuRequest: '1'
+      mountSources: true
+  - name: venv
+    volume:
+      size: 2G
+commands:
+  - id: run
+    exec:
+      label: "Run the application"
+      component: python
+      workingDir: ${PROJECTS_ROOT}/python-hello-world
+      commandLine: echo 'Hello Paul'
+      group:
+        kind: run
