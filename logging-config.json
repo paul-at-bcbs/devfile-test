@@ -1,0 +1,37 @@
+{
+    "version": 1,
+    "disable_existing_loggers": false,
+    "formatters": {
+        "default": {
+            "format": "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+        }
+    },
+    "handlers": {
+        "rest_api_handler": {
+            "class": "asyncRESTAPIHandler.AsyncRESTAPIHandler",
+            "level": "ERROR",
+            "formatter": "default",
+            "url": "http://localhost:8000/items/123",
+            "method": "POST"
+        },
+        "console": {
+            "class": "logging.StreamHandler",
+            "formatter": "default"
+        }
+    },
+    "loggers": {
+        "blah": {
+            "level": "DEBUG",
+            "handlers": ["console"],
+            "propagate": false
+        },
+        "async_logger.foo": {
+            "level": "DEBUG",
+            "propagate": true
+        }
+    },
+    "root": {
+        "level": "DEBUG",
+        "handlers": ["console"]
+    }
+}
